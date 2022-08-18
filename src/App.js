@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import data from "./data.json";
 import Card from "./Card";
 import Card2 from "./Card2";
+
+//Assets
 import { AppstoreOutlined, MenuOutlined } from "@ant-design/icons";
 
 const App = () => {
