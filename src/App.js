@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import data from "./data.json";
+import Card from "./Card";
+import Card2 from "./Card2";
+import { AppstoreOutlined, MenuOutlined } from "@ant-design/icons";
 
-function App() {
+const App = () => {
+  const [userData, setUserData] = useState(data);
+  const [toggle, setToggle] = useState(false);
+
+  const handleDeleteUser = (userId) => {
+    setUserData((udata) => udata.filter((user) => user.id !== userId));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="toggle">
+        <button className="toggle-button" onClick={() => setToggle((t) => !t)}>
+          {toggle ? <AppstoreOutlined /> : <MenuOutlined />}
+        </button>
+      </div>
+      {!toggle ? (
+        <div className="App">
+          {userData.map((user) => {
+            return (
+              <Card
+                key={user.id}
+                user={user}
+                handleDeleteUser={handleDeleteUser}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className="App2">
+          {userData.map((user) => {
+            return (
+              <Card2
+                key={user.id}
+                user={user}
+                handleDeleteUser={handleDeleteUser}
+              />
+            );
+          })}
+        </div>
+      )}
+    </>
   );
-}
+};
 
 export default App;
